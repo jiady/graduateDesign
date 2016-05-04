@@ -60,7 +60,8 @@ if reduced_train_number>train_num
     DataX=DataX(ix,:);
     DataY=DataY(ix,:);
 end
-
+originDataX=DataX;
+DataX=repmat(DataY,1,matrix_data_row_num*matrix_data_col_num).*DataX;
 
 %%
 CC=[0.001, 0.01,  0.1, 1, 10];
