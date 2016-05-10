@@ -30,7 +30,9 @@ for i=1:matrix_data_col_num/5
 end
 %%
 
-error=[0,0.0001,0.001,0.01,0.1,1];
+error=[0,0.0001,0.001,0.01,0.1];
+
+
 
 for index=1:1
     for i=1:matrix_data_row_num*matrix_data_col_num

@@ -24,13 +24,21 @@ zero_index=find(index==length(index));
 
 %timerVal = tic;
 if(gardient_of_theta<0)
-valueBigThanZero=cumsum(sortedAbsPayOffList(zero_index:end))+sortedZerosList(zero_index:end);
-i=find(valueBigThanZero>-gardient_of_theta,1,'first');
-weight=sortedZerosList(zero_index-1+i);
+    valueBigThanZero=cumsum(sortedAbsPayOffList(zero_index:end))+sortedZerosList(zero_index:end);
+    i=find(valueBigThanZero>-gardient_of_theta,1,'first');
+    if isempty(i)
+        weight=sortedZerosList(end)+(-gardient_of_theta-valueBigThanZero(end))
+    else
+        weight=sortedZerosList(zero_index-1+i);
+    end
 else
-valueSmallThanZero=cumsum(sortedAbsPayOffList(1:zero_index),'reverse')+sortedZerosList(1:zero_index);
-i=find(valueSmallThanZero>-gardient_of_theta,1,'first');
-weight=sortedZerosList(i);
+    valueSmallThanZero=cumsum(sortedAbsPayOffList(1:zero_index),'reverse')+sortedZerosList(1:zero_index);
+    i=find(valueSmallThanZero<gardient_of_theta,1,'first');
+    if isempty(i)
+        weight=sortedZerosList(1)-(gardient_of_theta-valueSmallThanZero(1))
+    else
+        weight=sortedZerosList(i);
+    end
 end
 %disp 'find gardient weight';
 %toc(timerVal)

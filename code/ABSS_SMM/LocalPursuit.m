@@ -25,6 +25,7 @@ for t= n+1:n+iteration
     %disp 'gdt ';
     %toc(timerVal)
     
+    
     %timerVal = tic;
     dLoss=reshape(dLoss,matrix_data_row_num,matrix_data_col_num);
     [u,~,v]= topsvd(-dLoss,20);
@@ -41,13 +42,15 @@ for t= n+1:n+iteration
     Wt= Wt+ weight .* M;
     %disp 'weight calculation';
     %toc(timerVal)
-    
-    %M_col(:,t-n)=M;
-    %for q=t:-1:n+1
-    %    [weight]=lpGetThetaByCalculate(Wt,dLoss,M_col(:,q-n),choose,single_loss);
-    %    Wt= Wt+ weight .* M;
-    %    [dLoss,choose,single_loss] = gdtLoss(Wt);
-    %end
+    %disp 'iteration:'
+%     t
+%     M_col(:,t-n)=M;
+%     for q=t:-1:n+1
+%         q
+%          [weight]=lpGetThetaByCalculate(Wt,dLoss,M_col(:,q-n),choose,single_loss);
+%          Wt= Wt+ weight .* M_col(:,q-n);
+%          [dLoss,choose,single_loss] = gdtLoss(Wt);
+%      end
 
     %mid =[ mid objective_value(Wt)];
 end

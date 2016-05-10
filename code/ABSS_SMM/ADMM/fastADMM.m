@@ -1,7 +1,7 @@
 function [w_k, b, rk, stop_iter, obj_vale_history,time] = fastADMM (X, y, p, q, C, tau, max_iter, inner_iter, eps, rho, eta) 
 tic;
     if (~exist('max_iter', 'var'))
-        max_iter = 50;
+        max_iter = 500;
     end
     if (~exist('inner_iter', 'var'))
         inner_iter = 100;
@@ -18,8 +18,8 @@ tic;
     if (~exist('eta', 'var'))
         eta = 0.999;
     end
-    time =zeros(max_iter,1);
-    obj_vale_history = zeros(max_iter,1);
+    time =zeros(max_iter-2,1);
+    obj_vale_history = zeros(max_iter-2,1);
     
     K = ((X*X') .* (y*y')) / (rho + 1);
     %t = 1 / norm(K, 2);
@@ -78,10 +78,13 @@ tic;
         s_km1 = s_k;
         lambda_km1 = lambda_k;
         t_k = t_kp1;
-
+        
         obj_k = objective_value_f(w_k, p, q, b, X, y, C, tau);
-        obj_vale_history(k)=obj_k;
-        time(k)=toc;
+        if k>2 
+            obj_vale_history(k-2)=obj_k;
+            time(k-2)=toc;
+        end
+        
         recent_idx = recent_idx + 1;
         obj_recent(recent_idx) = obj_k;
         if (recent_idx == recent_number)
